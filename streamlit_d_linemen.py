@@ -38,12 +38,20 @@ age = st.slider("Age", min_value=21, max_value=24, step=1)
 
 # 🔹 Prediction Button
 if st.button("Predict"):
-    # Prepare input features (no need for dataset scaling)
+    # ✅ Prepare input features
     features = np.array([[pos, ras, yr2_av, yr3_av, yr4_av, age]])
 
-    # Make prediction
-    prediction = model.predict(features)
+    # ✅ Scale features (IMPORTANT: This must match training scaling)
+    scaler = StandardScaler()
+    features_scaled = scaler.fit_transform(features)  # Fit & transform inputs
 
-    # ✅ Display Result
+    # ✅ Make prediction
+    prediction = model.predict(features_scaled)
+    prediction_proba = model.predict_proba(features_scaled)
+
+    # ✅ Display Results
     result_text = "Yes ✅" if prediction[0] == 1 else "No ❌"
     st.success(f"Will this player play at least 8 years?: {result_text}")
+
+    # 🔍 Debugging: Show Prediction Probabilities
+    st.write("🔍 Prediction Probabilities:", prediction_proba)
