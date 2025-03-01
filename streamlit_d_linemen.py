@@ -5,7 +5,7 @@ import requests
 from sklearn.preprocessing import StandardScaler
 
 # ✅ Download & Load Pre-Trained Model
-model_url = "https://raw.githubusercontent.com/ChandlerAimesHolt/NFL-Longevity-model/main/classifier.pkl"
+model_url = "https://github.com/ChandlerAimesHolt/NFL-Longevity-model/raw/refs/heads/main/classifier.pkl"
 
 try:
     response = requests.get(model_url)
