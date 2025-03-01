@@ -41,7 +41,7 @@ ras = st.slider("Relative Athletic Score (RAS)", min_value=0.0, max_value=10.0, 
 yr2_av = st.slider("2nd Year AV", min_value=0.0, max_value=6.0, step=1.0)
 yr3_av = st.slider("3rd Year AV", min_value=0.0, max_value=6.0, step=1.0)
 yr4_av = st.slider("4th Year AV", min_value=0.0, max_value=6.0, step=1.0)
-age = st.slider("Age", min_value=21, max_value=24, step=1)
+age = st.slider("Age at the start of second season", min_value=21, max_value=24, step=1)
 
 # 🔹 Prediction Button
 if st.button("Predict"):
