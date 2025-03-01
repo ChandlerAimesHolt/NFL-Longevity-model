@@ -38,9 +38,9 @@ st.write("Enter player attributes to predict if a defensive lineman will play at
 # 🔹 User Inputs (Sliders and Radio Buttons)
 pos = st.radio("Position", options=[0, 1], format_func=lambda x: "Defensive End (1)" if x == 1 else "Defensive Tackle (0)")
 ras = st.slider("Relative Athletic Score (RAS)", min_value=0.0, max_value=10.0, step=0.1)
-yr2_av = st.slider("2nd Year AV", min_value=0.0, max_value=6.0, step=1.0)
-yr3_av = st.slider("3rd Year AV", min_value=0.0, max_value=6.0, step=1.0)
-yr4_av = st.slider("4th Year AV", min_value=0.0, max_value=6.0, step=1.0)
+yr2_av = st.slider("2nd Year AV", min_value=0.0, max_value=10.0, step=1.0)
+yr3_av = st.slider("3rd Year AV", min_value=0.0, max_value=10.0, step=1.0)
+yr4_av = st.slider("4th Year AV", min_value=0.0, max_value=10.0, step=1.0)
 age = st.slider("Age at the start of second season", min_value=21, max_value=24, step=1)
 
 # 🔹 Prediction Button
