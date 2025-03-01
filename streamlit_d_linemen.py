@@ -23,7 +23,7 @@ import pickle
 import numpy as np
 
 # Load the trained model
-with open(r"C:\Users\chand\classifier.pkl", "rb") as model_file:
+with open(r"https://github.com/ChandlerAimesHolt/NFL-Longevity-model/raw/refs/heads/main/classifier.pkl", "rb") as model_file:
     model = pickle.load(model_file)
 
 
