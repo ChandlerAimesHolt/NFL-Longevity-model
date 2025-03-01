@@ -4,24 +4,31 @@ import pickle
 import requests
 from sklearn.preprocessing import StandardScaler
 
-# ✅ Download & Load Pre-Trained Model
-model_url = "https://github.com/ChandlerAimesHolt/NFL-Longevity-model/raw/refs/heads/main/classifier.pkl"
+# ✅ Load Pre-Trained Model
+model_url = "https://raw.githubusercontent.com/ChandlerAimesHolt/NFL-Longevity-model/main/classifier.pkl"
+response = requests.get(model_url)
+if response.status_code == 200:
+    with open("classifier.pkl", "wb") as file:
+        file.write(response.content)
 
-try:
-    response = requests.get(model_url)
-    if response.status_code == 200:
-        with open("classifier.pkl", "wb") as file:
-            file.write(response.content)
+    # Load the model
+    with open("classifier.pkl", "rb") as model_file:
+        model = pickle.load(model_file)
+else:
+    st.error("Failed to download the model. Please check the URL.")
+    st.stop()
 
-        # Load the model
-        with open("classifier.pkl", "rb") as model_file:
-            model = pickle.load(model_file)
-    else:
-        st.error("Failed to download the model. Please check the URL.")
-        st.stop()
+# ✅ Load Pre-Trained Scaler (Ensures Consistent Feature Scaling)
+scaler_url = "https://raw.githubusercontent.com/ChandlerAimesHolt/NFL-Longevity-model/main/scaler.pkl"
+response = requests.get(scaler_url)
+if response.status_code == 200:
+    with open("scaler.pkl", "wb") as file:
+        file.write(response.content)
 
-except Exception as e:
-    st.error(f"Error loading model: {e}")
+    with open("scaler.pkl", "rb") as scaler_file:
+        scaler = pickle.load(scaler_file)
+else:
+    st.error("Failed to download the scaler. Please check the URL.")
     st.stop()
 
 # ✅ Streamlit UI
@@ -41,9 +48,8 @@ if st.button("Predict"):
     # ✅ Prepare input features
     features = np.array([[pos, ras, yr2_av, yr3_av, yr4_av, age]])
 
-    # ✅ Scale features (IMPORTANT: This must match training scaling)
-    scaler = StandardScaler()
-    features_scaled = scaler.fit_transform(features)  # Fit & transform inputs
+    # ✅ Apply Correct Feature Scaling
+    features_scaled = scaler.transform(features)  # ✅ Now using the correct scaler
 
     # ✅ Make prediction
     prediction = model.predict(features_scaled)
