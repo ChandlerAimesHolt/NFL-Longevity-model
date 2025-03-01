@@ -52,12 +52,12 @@ if st.button("Predict"):
     features_scaled = scaler.transform(features)  # ✅ Now using the correct scaler
 
     # ✅ Make prediction
-    prediction = model.predict(features_scaled)
     prediction_proba = model.predict_proba(features_scaled)
 
-    # ✅ Display Results
-    result_text = "Yes ✅" if prediction[0] == 1 else "No ❌"
-    st.success(f"Will this player play at least 8 years?: {result_text}")
+    # ✅ Use probability threshold (if probability of '1' > 0.5, say "Yes")
+    probability_of_yes = prediction_proba[0][1]  # Probability of class 1
+    result_text = "Yes ✅" if probability_of_yes > 0.5 else "No ❌"
 
-    # 🔍 Debugging: Show Prediction Probabilities
-    st.write("🔍 Prediction Probabilities:", prediction_proba)
+    # ✅ Display Results
+    st.success(f"Will this player play at least 8 years?: {result_text}")
+    st.write(f"🔍 Probability of playing 8+ years: {probability_of_yes:.4f}")
