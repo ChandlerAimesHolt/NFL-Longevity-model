@@ -1,5 +1,6 @@
 import pandas as pd
-Final_Data = pd.read_csv(r"C:\Users\chand\Desktop\Jupyter repository\Dlineman prediction")
+url = 'https://raw.githubusercontent.com/ChandlerAimesHolt/NFL-Longevity-model/refs/heads/main/Dlineman%20prediction'
+Final_Data = pd.read_csv(url)
 
 from sklearn.model_selection import train_test_split
 X = Final_Data.drop(columns = ['Name', 'career_length', '8_or_more'])
